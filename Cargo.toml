@@ -1,0 +1,27 @@
+[package]
+name = "toil_and_hardship"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+logger = []
+fullscreen = []
+
+[profile.release]
+lto = true 
+codegen-units = 1    # should be 1, test diff
+opt-level = "z"       # is this highest  
+panic = 'abort'
+# rustflags = ["-C", "target-cpu=native", "--emit=obj"]       #??? to emit the obj files not sure about first two
+# rustflags = ["--emit=obj"]       #??? to emit the obj files not sure about first two
+
+[profile.dev]
+lto = true 
+opt-level = 0
+panic = "abort"
+
+[dependencies]
+cty = "*"
+winapi = { version = "0.3.9", features = ["windef", "wingdi", "winuser", "libloaderapi", "fileapi", "handleapi", "processthreadsapi"] }
